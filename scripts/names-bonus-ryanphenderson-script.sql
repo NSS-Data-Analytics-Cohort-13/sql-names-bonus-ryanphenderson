@@ -87,15 +87,71 @@
 -- Answer: Steven wins!
 
 -- 14. What percentage of names are "unisex" - that is what percentage of names have been used both for boys and for girls?
+-- SELECT ROUND((SUM(distinct_names_total)-98400)/98400.0*100,2)
+-- FROM (SELECT COUNT(DISTINCT name) AS distinct_names_total, gender
+-- 	FROM names
+-- 	GROUP BY gender)
+-- Answer: 10.95 percent
 
 -- 15. How many names have made an appearance in every single year since 1880?
+-- SELECT DISTINCT name, COUNT(DISTINCT year) as year_total
+-- FROM names
+-- GROUP BY name
+-- HAVING COUNT(DISTINCT year) = 139
+-- ORDER BY year_total DESC;
+-- Answer: 921 names
 
 -- 16. How many names have only appeared in one year?
+-- SELECT DISTINCT name, COUNT(DISTINCT year) as year_total
+-- FROM names
+-- GROUP BY name
+-- HAVING COUNT(DISTINCT year) = 1
+-- ORDER BY year_total DESC;
+-- Answer: 21123 names
 
 -- 17. How many names only appeared in the 1950s?
+-- SELECT name, COUNT(DISTINCT year) AS name_total, n2.fifties_total
+-- FROM names as n1
+-- INNER JOIN (SELECT name, COUNT(DISTINCT year) AS fifties_total
+-- 			FROM names
+-- 			WHERE year BETWEEN 1950 AND 1959
+-- 			GROUP BY name) as n2
+-- USING(name)
+-- GROUP BY name, n2.fifties_total
+-- HAVING COUNT(DISTINCT year) = n2.fifties_total
+-- ORDER BY name_total DESC;
+-- Answer: 661 names
 
 -- 18. How many names made their first appearance in the 2010s?
+-- SELECT name, COUNT(DISTINCT year) AS name_total, n2.tens_total
+-- FROM names as n1
+-- INNER JOIN (SELECT name, COUNT(DISTINCT year) AS tens_total
+-- 			FROM names
+-- 			WHERE year BETWEEN 2010 AND 2018
+-- 			GROUP BY name) as n2
+-- USING(name)
+-- GROUP BY name, n2.tens_total
+-- HAVING COUNT(DISTINCT year) = n2.tens_total
+-- ORDER BY name_total DESC;
+--Answer: 11270 names
 
 -- 19. Find the names that have not be used in the longest.
+-- SELECT name, COUNT(DISTINCT year) AS name_total, n2.oldest_total
+-- FROM names as n1
+-- INNER JOIN (SELECT name, COUNT(DISTINCT year) AS oldest_total
+-- 			FROM names
+-- 			WHERE year = 1881
+-- 			GROUP BY name) as n2
+-- USING(name)
+-- GROUP BY name, n2.oldest_total
+-- HAVING COUNT(DISTINCT year) = n2.oldest_total
+-- ORDER BY name_total DESC;
+-- Answer: Roll and Zilpah have not been used since 1881
 
 -- 20. Come up with a question that you would like to answer using this dataset. Then write a query to answer this question.
+-- Which year has the longest names, on average?
+-- SELECT year, AVG(LENGTH(name)) AS avg_length
+-- FROM names
+-- GROUP BY year
+-- ORDER BY avg_length DESC
+-- Answer: 1992 has the longest names, on average.
