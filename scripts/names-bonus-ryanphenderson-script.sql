@@ -110,7 +110,7 @@
 -- Answer: 21123 names
 
 -- 17. How many names only appeared in the 1950s?
--- SELECT name, COUNT(DISTINCT year) AS name_total, n2.fifties_total
+-- SELECT name, n2.fifties_total
 -- FROM names as n1
 -- INNER JOIN (SELECT name, COUNT(DISTINCT year) AS fifties_total
 -- 			FROM names
@@ -119,11 +119,11 @@
 -- USING(name)
 -- GROUP BY name, n2.fifties_total
 -- HAVING COUNT(DISTINCT year) = n2.fifties_total
--- ORDER BY name_total DESC;
+-- ORDER BY n2.fifties_total DESC;
 -- Answer: 661 names
 
 -- 18. How many names made their first appearance in the 2010s?
--- SELECT name, COUNT(DISTINCT year) AS name_total, n2.tens_total
+-- SELECT name, n2.tens_total
 -- FROM names as n1
 -- INNER JOIN (SELECT name, COUNT(DISTINCT year) AS tens_total
 -- 			FROM names
@@ -132,11 +132,11 @@
 -- USING(name)
 -- GROUP BY name, n2.tens_total
 -- HAVING COUNT(DISTINCT year) = n2.tens_total
--- ORDER BY name_total DESC;
+-- ORDER BY n2.tens_total DESC;
 --Answer: 11270 names
 
 -- 19. Find the names that have not be used in the longest.
--- SELECT name, COUNT(DISTINCT year) AS name_total, n2.oldest_total
+-- SELECT name, n2.oldest_total
 -- FROM names as n1
 -- INNER JOIN (SELECT name, COUNT(DISTINCT year) AS oldest_total
 -- 			FROM names
@@ -145,7 +145,7 @@
 -- USING(name)
 -- GROUP BY name, n2.oldest_total
 -- HAVING COUNT(DISTINCT year) = n2.oldest_total
--- ORDER BY name_total DESC;
+-- ORDER BY n2.oldest_total DESC;
 -- Answer: Roll and Zilpah have not been used since 1881
 
 -- 20. Come up with a question that you would like to answer using this dataset. Then write a query to answer this question.
